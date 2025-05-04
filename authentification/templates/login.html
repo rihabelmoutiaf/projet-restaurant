@@ -6,6 +6,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
 
   <style>
     body {
@@ -14,7 +16,8 @@
       display: flex;
       justify-content: center;
       height: 100vh;
-
+      padding-top: 80px;
+      /* Ajustez la valeur en fonction de la hauteur de votre navbar */
     }
 
     .form {
@@ -136,10 +139,19 @@
 </head>
 
 <body>
+  <div class="w3-top w3-hide-small">
+    <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
+      <a href="/home/page" class="w3-bar-item w3-button">HOME</a>
+      <a href="/menu/page" class="w3-bar-item w3-button">MENU</a>
+      <a href="/menu/about" class="w3-bar-item w3-button">ABOUT</a>
+      <a href="/authentification/login" class="w3-bar-item w3-button">LOGIN</a>
+      <a href="" class="w3-bar-item w3-button">COMMANDER</a>
+    </div>
+  </div>
 
   <div class="form">
     <div class="title">Welcome</div>
-    <div class="subtitle">Let's get to work !</div>
+    <div class="subtitle">Let's get to work!</div>
     <div class="input-container ic1">
       <input id="firstname" class="input" type="email" placeholder=" " />
       <div class="cut"></div>

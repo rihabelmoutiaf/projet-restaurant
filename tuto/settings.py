@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentification',
     'home',
+    'menu',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +83,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation
