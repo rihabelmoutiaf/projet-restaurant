@@ -149,23 +149,22 @@
     </div>
   </div>
 
-  <div class="form">
-    <div class="title">Welcome</div>
-    <div class="subtitle">Let's get to work!</div>
-    <div class="input-container ic1">
-      <input id="firstname" class="input" type="email" placeholder=" " />
-      <div class="cut"></div>
-      <label for="firstname" class="placeholder">Email</label>
+  <form method="post" action="{% url 'auth' %}">
+    {% csrf_token %}
+    <div class="form">
+      <div class="title">Welcome</div>
+      <div class="subtitle">Let's get to work!</div>
+      <div class="input-container ic1">
+        <!-- Correct form field name and display error message if any -->
+        <input id="email" class="input" type="email" name="username" placeholder=" " required />
+        <div class="cut"></div>
+        <label for="email" class="placeholder">Email</label>
+      </div>
+      <div class="input-container ic2">
+        <input id="password" class="input" type="password" name="password" placeholder=" " required />
+        <div class="cut"></div>
+        <label for="password" class="placeholder">Password</label>
+      </div>
+      <button type="submit" class="submit">Submit</button>
     </div>
-    <div class="input-container ic2">
-      <input id="lastname" class="input" type="password" placeholder=" " />
-      <div class="cut"></div>
-      <label for="lastname" class="placeholder">Password</label>
-    </div>
-
-    <button type="submit" class="submit">Submit</button>
-  </div>
-
-</body>
-
-</html>
+  </form>
