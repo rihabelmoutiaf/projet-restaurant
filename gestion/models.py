@@ -1,12 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class Administrateur(models.Model):
-    email = models.CharField(max_length=255, unique=True)
-    mot_de_passe = models.CharField(max_length=255)
-    droits_gestion = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.email
 
 class Client(models.Model):
     nom = models.CharField(max_length=100)
@@ -27,7 +21,13 @@ class Serveur(models.Model):
     email = models.CharField(max_length=255, unique=True)
     mot_de_passe = models.CharField(max_length=255)
     tables_assignees = models.CharField(max_length=255, blank=True, null=True)
-    administrateur = models.ForeignKey('Administrateur', on_delete=models.SET_NULL, blank=True, null=True)
+    administrateur = models.ForeignKey(
+        User,  
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        limit_choices_to={'is_superuser': True} 
+    )
 
     def __str__(self):
         return self.email
