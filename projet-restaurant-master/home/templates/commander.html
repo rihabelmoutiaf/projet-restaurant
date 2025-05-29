@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informations Commande - Restaurant Savor</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      background: url("{% static 'image/background3.png' %}");
+      background-size: cover;
+      position: relative;
+      padding-top: 60px;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
+
+    .order-container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #d4af37;
+      border-bottom: 2px solid #d4af37;
+      padding-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #d4af37;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #d4af37;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #000;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group input[type="number"],
+    .form-group input[type="datetime-local"] {
+      margin-bottom: 15px;
+    }
+
+    .form-group textarea {
+      margin-bottom: 15px;
+      resize: vertical;
+    }
+
+    .order-form button {
+      padding: 15px;
+      background-color: #d4af37;
+      color: #000;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .order-form button:hover {
+      background-color: #b78b27;
+    }
+
+    .contact-info {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    .messages {
+      margin-bottom: 20px;
+    }
+
+    .alert {
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .alert-success {
+      background-color: rgba(0, 255, 0, 0.2);
+      border-left: 4px solid #00ff00;
+    }
+
+    .alert-error {
+      background-color: rgba(255, 0, 0, 0.2);
+      border-left: 4px solid #ff0000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="w3-top w3-hide-small">
+    <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
+      <a href="/home/page" class="w3-bar-item w3-button">HOME</a>
+      <a href="/menu/page" class="w3-bar-item w3-button">MENU</a>
+      <a href="/menu/about" class="w3-bar-item w3-button">ABOUT</a>
+      <a href="/authentification/login" class="w3-bar-item w3-button">LOGIN</a>
+      <a href="/home/commander" class="w3-bar-item w3-button">COMMANDER</a>
+      <a href="/home/historique/" class="w3-bar-item w3-button">HISTORIQUE</a>
+    </div>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="order-container">
+    <h1>Informations Commande - Restaurant Savor</h1>
+
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Food Selection Section -->
+    <form action="/home/submit-order/" method="POST" class="order-form">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="entrées">Choisissez une entrée :</label>
+        <select name="entrées" id="entrées">
+          <option value="Foie Gras Maison">Foie Gras Maison - 264 MAD</option>
+          <option value="Tartare de Saumon">Tartare de Saumon - 198 MAD</option>
+          <option value="Soupe à l'Oignon Gratinée">Soupe à l'Oignon Gratinée - 132 MAD</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="entrées-quantity">Quantité d'entrées :</label>
+        <input type="number" name="entrées-quantity" id="entrées-quantity" min="0" value="0">
+      </div>
+
+      <div class="form-group">
+        <label for="plats">Choisissez un plat principal :</label>
+        <select name="plats" id="plats">
+          <option value="Filet de Boeuf Rossini">Filet de Boeuf Rossini - 418 MAD</option>
+          <option value="Risotto aux Champignons Sauvages">Risotto aux Champignons Sauvages - 286 MAD</option>
+          <option value="Dos de Bar en Croûte de Sel">Dos de Bar en Croûte de Sel - 352 MAD</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="plats-quantity">Quantité de plats principaux :</label>
+        <input type="number" name="plats-quantity" id="plats-quantity" min="0" value="0">
+      </div>
+
+      <div class="form-group">
+        <label for="desserts">Choisissez un dessert :</label>
+        <select name="desserts" id="desserts">
+          <option value="Soufflé Grand Marnier">Soufflé Grand Marnier - 154 MAD</option>
+          <option value="Chocolat Fondant">Chocolat Fondant - 132 MAD</option>
+          <option value="Assiette de Fromages Affinés">Assiette de Fromages Affinés - 176 MAD</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="desserts-quantity">Quantité de desserts :</label>
+        <input type="number" name="desserts-quantity" id="desserts-quantity" min="0" value="0">
+      </div>
+
+      <div class="form-group">
+        <label for="boissons">Choisissez une boisson :</label>
+        <select name="boissons" id="boissons">
+          <option value="Vin Rouge Château Bordeaux">Vin Rouge Château Bordeaux - 120 MAD</option>
+          <option value="Vin Blanc Chardonnay">Vin Blanc Chardonnay - 110 MAD</option>
+          <option value="Eau Minérale">Eau Minérale - 25 MAD</option>
+          <option value="Café Espresso">Café Espresso - 35 MAD</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="boissons-quantity">Quantité de boissons :</label>
+        <input type="number" name="boissons-quantity" id="boissons-quantity" min="0" value="0">
+      </div>
+
+      <!-- Personal Information Section -->
+      <div class="form-group">
+        <label for="name">Nom Complet :</label>
+        <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Numéro de téléphone :</label>
+        <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone" required>
+      </div>
+
+      <div class="form-group">
+        <label for="reservation-datetime">Date et Heure de Réservation :</label>
+        <input type="datetime-local" id="reservation-datetime" name="reservation-datetime" required>
+      </div>
+
+      <button type="submit">Passer la commande</button>
+    </form>
+
+    <div class="contact-info">
+      <p>Réservez votre table ou appelez pour plus d'informations.</p>
+      <p>12 Rue Avenue Mohammed VI Rabat | Tél: 06 22 45 67 89</p>
+    </div>
+  </div>
+
+</body>
+
+</html>

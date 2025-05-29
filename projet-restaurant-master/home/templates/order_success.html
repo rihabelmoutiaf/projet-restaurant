@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commande Confirmée - Restaurant Savor</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      background: url("{% static 'image/background3.png' %}");
+      background-size: cover;
+      position: relative;
+      padding-top: 60px;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
+
+    .success-container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      color: #28a745;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #d4af37;
+      margin-bottom: 20px;
+    }
+
+    .order-info {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 8px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .order-detail {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      padding: 10px 0;
+      border-bottom: 1px dashed #666;
+    }
+
+    .order-detail:last-child {
+      border-bottom: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #d4af37;
+    }
+
+    .order-notes {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 5px;
+      margin: 20px 0;
+      white-space: pre-line;
+      text-align: left;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 30px;
+      margin: 10px;
+      background-color: #d4af37;
+      color: #000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #b8941f;
+    }
+
+    .btn-secondary {
+      background-color: #666;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="w3-top w3-hide-small">
+    <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
+      <a href="/home/page" class="w3-bar-item w3-button">HOME</a>
+      <a href="/menu/page" class="w3-bar-item w3-button">MENU</a>
+      <a href="/menu/about" class="w3-bar-item w3-button">ABOUT</a>
+      <a href="/authentification/login" class="w3-bar-item w3-button">LOGIN</a>
+      <a href="/home/commander" class="w3-bar-item w3-button">COMMANDER</a>
+      <a href="/home/historique/" class="w3-bar-item w3-button">HISTORIQUE</a>
+    </div>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="success-container">
+    <div class="success-icon">✅</div>
+    <h1>Commande Confirmée!</h1>
+    
+    <p style="font-size: 1.2rem; margin-bottom: 30px;">
+      Votre commande a été passée avec succès. Merci pour votre confiance!
+    </p>
+
+    <div class="order-info">
+      <h3 style="color: #d4af37; margin-bottom: 20px;">Détails de la Commande</h3>
+      
+      <div class="order-detail">
+        <span>Numéro de commande:</span>
+        <span>#{{ commande.id }}</span>
+      </div>
+      
+      <div class="order-detail">
+        <span>Date:</span>
+        <span>{{ commande.date_commande|date:"d/m/Y à H:i" }}</span>
+      </div>
+      
+      {% if commande.table %}
+      <div class="order-detail">
+        <span>Table:</span>
+        <span>{{ commande.table.numero }}</span>
+      </div>
+      {% endif %}
+      
+      {% if commande.client %}
+      <div class="order-detail">
+        <span>Client:</span>
+        <span>{{ commande.client.prenom }} {{ commande.client.nom }}</span>
+      </div>
+      {% endif %}
+      
+      <div class="order-detail">
+        <span>Statut:</span>
+        <span>En cours de préparation</span>
+      </div>
+      
+      <div class="order-detail">
+        <span><strong>Total:</strong></span>
+        <span><strong>{{ commande.montant_total }} MAD</strong></span>
+      </div>
+    </div>
+
+    {% if commande.notes %}
+    <div class="order-notes">
+      <h4 style="color: #d4af37; margin-bottom: 15px;">Détails:</h4>
+      {{ commande.notes }}
+    </div>
+    {% endif %}
+
+    <div style="margin-top: 40px;">
+      <a href="/home/commander" class="btn">Nouvelle Commande</a>
+      <a href="/home/historique/" class="btn btn-secondary">Voir l'Historique</a>
+      <a href="/home/page" class="btn btn-secondary">Retour à l'Accueil</a>
+    </div>
+
+    <div style="margin-top: 40px; color: #aaa; font-size: 0.9rem;">
+      <p>Votre commande sera préparée dans les meilleurs délais.</p>
+      <p>Pour toute question, contactez-nous au 06 22 45 67 89</p>
+    </div>
+  </div>
+</body>
+
+</html>

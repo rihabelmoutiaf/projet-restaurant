@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historique des Commandes - Restaurant Savor</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      background: url("{% static 'image/background3.png' %}");
+      background-size: cover;
+      position: relative;
+      padding-top: 60px;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
+
+    .history-container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #d4af37;
+      border-bottom: 2px solid #d4af37;
+      padding-bottom: 10px;
+    }
+
+    .order-card {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #d4af37;
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .order-id {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #d4af37;
+    }
+
+    .order-date {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .status-badge {
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .status-en_cours {
+      background-color: #ffc107;
+      color: #000;
+    }
+
+    .status-servie {
+      background-color: #17a2b8;
+      color: #fff;
+    }
+
+    .status-payee {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .order-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .detail-label {
+      font-weight: bold;
+      color: #d4af37;
+    }
+
+    .order-notes {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+
+    .total-amount {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #d4af37;
+      text-align: right;
+    }
+
+    .no-orders {
+      text-align: center;
+      padding: 50px;
+      color: #ccc;
+      font-size: 1.2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #d4af37;
+      color: #000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      margin: 10px;
+    }
+
+    .btn:hover {
+      background-color: #b8941f;
+    }
+
+    .btn-secondary {
+      background-color: #666;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #555;
+    }
+
+    .actions {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .order-details {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="w3-top w3-hide-small">
+    <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
+      <a href="/home/page" class="w3-bar-item w3-button">HOME</a>
+      <a href="/menu/page" class="w3-bar-item w3-button">MENU</a>
+      <a href="/menu/about" class="w3-bar-item w3-button">ABOUT</a>
+      <a href="/authentification/login" class="w3-bar-item w3-button">LOGIN</a>
+      <a href="/home/commander" class="w3-bar-item w3-button">COMMANDER</a>
+      <a href="/home/historique/" class="w3-bar-item w3-button">HISTORIQUE</a>
+    </div>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="history-container">
+    <h1>Historique des Commandes</h1>
+
+    <div class="actions">
+      <a href="/home/commander" class="btn">Nouvelle Commande</a>
+      <a href="/home/page" class="btn btn-secondary">Retour à l'Accueil</a>
+    </div>
+
+    {% if commandes %}
+    {% for commande in commandes %}
+    <div class="order-card">
+      <div class="order-header">
+        <div>
+          <div class="order-id">Commande #{{ commande.id }}</div>
+          <div class="order-date">{{ commande.date_commande|date:"d/m/Y à H:i" }}</div>
+        </div>
+        <div class="status-badge status-{{ commande.statut }}">
+          {% if commande.statut == 'en_cours' %}En Cours
+          {% elif commande.statut == 'servie' %}Servie
+          {% elif commande.statut == 'payee' %}Payée
+          {% elif commande.statut == 'annulee' %}Annulée
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="order-details">
+        {% if commande.table %}
+        <div class="detail-item">
+          <span class="detail-label">Table:</span>
+          <span>{{ commande.table.numero }}</span>
+        </div>
+        {% endif %}
+
+        {% if commande.serveur %}
+        <div class="detail-item">
+          <span class="detail-label">Serveur:</span>
+          <span>{{ commande.serveur.email }}</span>
+        </div>
+        {% endif %}
+
+        {% if commande.client %}
+        <div class="detail-item">
+          <span class="detail-label">Client:</span>
+          <span>{{ commande.client.prenom }} {{ commande.client.nom }}</span>
+        </div>
+        {% endif %}
+
+        {% if commande.client.telephone %}
+        <div class="detail-item">
+          <span class="detail-label">Téléphone:</span>
+          <span>{{ commande.client.telephone }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if commande.notes %}
+      <div class="order-notes">
+        <div class="detail-label" style="margin-bottom: 10px;">Détails de la commande:</div>
+        {{ commande.notes }}
+      </div>
+      {% endif %}
+
+      <div class="total-amount">
+        Total: {{ commande.montant_total }} MAD
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="no-orders">
+      <p>Aucune commande trouvée.</p>
+      <a href="/home/commander" class="btn">Passer votre première commande</a>
+    </div>
+    {% endif %}
+  </div>
+</body>
+
+</html>

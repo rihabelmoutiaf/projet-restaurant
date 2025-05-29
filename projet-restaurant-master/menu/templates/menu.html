@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - Restaurant Élégance</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      background: url("{% static 'image/background3.png' %}");
+      background-size: cover;
+      position: relative;
+      padding-top: 60px;
+
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
+
+    .menu-container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      margin-bottom: 60px;
+      /* Cette ligne ajoute un espace supplémentaire en bas */
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #d4af37;
+      border-bottom: 2px solid #d4af37;
+      padding-bottom: 10px;
+    }
+
+    h2 {
+      color: #d4af37;
+      border-left: 4px solid #d4af37;
+      padding-left: 10px;
+      margin-top: 30px;
+    }
+
+    .dish {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #555;
+    }
+
+    .dish-name {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .dish-description {
+      font-style: italic;
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      width: 80%;
+    }
+
+    .dish-price {
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    .contact-info {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="w3-top w3-hide-small">
+    <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
+      <a href="/home/page" class="w3-bar-item w3-button">HOME</a>
+      <a href="/menu/page" class="w3-bar-item w3-button">MENU</a>
+      <a href="/menu/about" class="w3-bar-item w3-button">ABOUT</a>
+      <a href="/authentification/login" class="w3-bar-item w3-button">LOGIN</a>
+      <a href="/gestion/commander/" class="w3-bar-item w3-button">COMMANDER</a>
+      <a href="/gestion/historique/" class="w3-bar-item w3-button">HISTORIQUE</a>
+    </div>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="menu-container">
+    <h1>Menu du Restaurant Savor </h1>
+
+    <div>
+      <h2>Entrées</h2>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Foie Gras Maison</div>
+          <div class="dish-description">Foie gras de canard mi-cuit, chutney de figues et pain brioché toasté</div>
+        </div>
+        <div class="dish-price">264 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Tartare de Saumon</div>
+          <div class="dish-description">Saumon frais mariné au citron et aneth, avocat et blinis</div>
+        </div>
+        <div class="dish-price">198 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Soupe à l'Oignon Gratinée</div>
+          <div class="dish-description">Recette traditionnelle avec oignons caramélisés et fromage gruyère</div>
+        </div>
+        <div class="dish-price">132 MAD</div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Plats Principaux</h2>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Filet de Boeuf Rossini</div>
+          <div class="dish-description">Filet de boeuf charolais, foie gras poêlé, sauce au vin rouge, pommes dauphines
+          </div>
+        </div>
+        <div class="dish-price">418 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Risotto aux Champignons Sauvages</div>
+          <div class="dish-description">Risotto crémeux aux cèpes et girolles, parmesan Reggiano</div>
+        </div>
+        <div class="dish-price">286 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Dos de Bar en Croûte de Sel</div>
+          <div class="dish-description">Bar de ligne cuit à la vapeur, légumes de saison, beurre blanc</div>
+        </div>
+        <div class="dish-price">352 MAD</div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Desserts</h2>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Soufflé Grand Marnier</div>
+          <div class="dish-description">Soufflé léger parfumé à l'orange, glace vanille</div>
+        </div>
+        <div class="dish-price">154 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Chocolat Fondant</div>
+          <div class="dish-description">Cœur coulant de chocolat noir, glace à la vanille de Madagascar</div>
+        </div>
+        <div class="dish-price">132 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Assiette de Fromages Affinés</div>
+          <div class="dish-description">Sélection de 5 fromages français accompagnés de raisins et noix</div>
+        </div>
+        <div class="dish-price">176 MAD</div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Boissons</h2>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Coca-Cola</div>
+          <div class="dish-description">Boisson gazeuse rafraîchissante</div>
+        </div>
+        <div class="dish-price">30 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Jus d'Orange Frais</div>
+          <div class="dish-description">Jus d'orange 100% naturel, pressé à la demande</div>
+        </div>
+        <div class="dish-price">40 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Eau Minérale</div>
+          <div class="dish-description">Eau plate ou gazeuse</div>
+        </div>
+        <div class="dish-price">20 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Vin Rouge (Verre)</div>
+          <div class="dish-description">Vin rouge sélectionné, verre de 150ml</div>
+        </div>
+        <div class="dish-price">60 MAD</div>
+      </div>
+
+      <div class="dish">
+        <div>
+          <div class="dish-name">Café Expresso</div>
+          <div class="dish-description">Café expresso intense</div>
+        </div>
+        <div class="dish-price">20 MAD</div>
+      </div>
+    </div>
+
+    <div class="contact-info">
+      <p>Réservez votre table au 06 22 45 67 89 • Ouvert du mardi au dimanche</p>
+      <p>12 Rue Avenue Mohammed VI Rabat</p>
+    </div>
+  </div>
+</body>
+
+</html>
